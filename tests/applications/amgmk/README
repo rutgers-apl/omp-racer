@@ -1,0 +1,66 @@
+### How to generate results
+
+This folder includes the different variants of the AMGmk 
+application used in the evaluation section in the paper. 
+To run all variants and generate the speedup and OMP-WhIP 
+profiles in a single output file, run the following command:
+
+$ python generate_results.py
+
+This will generate the input data for the application and run
+The variants of the application. The results are written to 
+report.txt.
+
+report.txt includes the profile of the original application,
+the what-if analysis profile of the application, and a profile 
+of the optimized version of the application, where we were able 
+to improve upon the original's performance. The report ends with 
+the speedup measurement of the original and the optimized application.
+
+To use the on-the-fly profiler to generate the above results, run
+the following command: 
+
+$ python generate_results_online.py
+
+Note that to run either of the two profiling modes, the user must source
+setup-ompwhip.sh or setup-ompwhip-online.sh before attempting to run
+the profiler.
+
+### How to run each application separately
+
+This directory contains 5 variants of amgMK-v1.0
+1) amgmk-v1.0_orig                original version
+2) amgmk-v1.0_orig_ser            original version running with 1 thread
+3) amgmk-v1.0_orig_prof           original version with Omp-WhIP profiling
+4) amgmk-v1.0_what_if             original version with what-if analysis
+5) amgmk-v1.0_opt                 optmized version 
+6) amgmk-v1.0_opt_prof            optimized version with Omp-WhIP profiling
+
+1) Make and run the program
+    > cd amgmk-v1.0/src
+    > make
+    > ./AMGMk
+
+2) Execute OMP-WhIP profile generation. this step can be skipped when
+using the on-the-fly profiler:
+
+(Works with the profiled version. No: 3,4,6 from the list above)
+   > $PGEN/genprof 
+
+Using genprof with the -f option generates a full what-if profile.
+The resulting application profile is located in log/profiler_output.csv.
+
+### Expected Result
+
+We have included an expected.report.txt that contains the contents
+of a previous execution using the offline profiler. The contents 
+of report.txt should closely match expected.report.txt. Speedup 
+values will vary depending on the CPU used.
+
+Note: For amgmk, parallelism results will differ on a machine with 
+a different core count (testing was done on a 16 core machine) due 
+to a for loop that in relax.c:92. Since this loop iterates over the
+number openmp threads, its inherent parallelism will be bounded by 
+the number of worker threads in the program.
+
+

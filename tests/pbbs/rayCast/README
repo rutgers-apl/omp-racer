@@ -1,0 +1,9 @@
+1) Create input
+   > cd geometryData/data
+   > make happyRays
+
+2) Make and run program
+   > cd kdTree
+   > make
+   > ./ray -r 1 -o /tmp/ofile136986_843068 ../geometryData/data/happyTriangles ../geometryData/data/happyRays
+

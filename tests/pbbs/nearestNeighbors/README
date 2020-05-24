@@ -1,0 +1,9 @@
+1) Create input
+   > cd geometryData/data
+   > make 2DinCube_10M
+
+2) Make and run program
+   > cd octTree2Neighbors
+   > make
+   > ./neighbors -d 2 -k 1 -r 1 -o /tmp/ofile677729_89710 ../geometryData/data/2DinCube_10M
+

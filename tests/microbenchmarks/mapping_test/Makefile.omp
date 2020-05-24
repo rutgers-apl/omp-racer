@@ -1,0 +1,19 @@
+CXX=clang++
+#INCLUDE = -I./ -I$(LLVM_INCLUDE) -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include  -g
+#LIBS = $(OMPP_ROOT)/src/omprace/libomprace.a $(LLVM_LIB)/libomp.so -Wl,-rpath=$(LLVM_LIB) $(LLVM_LIB)/libomp.so
+
+INCLUDE = 
+LIBS =
+CXXFLAGS = -fopenmp -std=c++11 -fPIE -g -O3
+LDFLAGS = -fopenmp -pie
+
+all: test_1_omp 
+
+test_1_omp: test_1_omp.o
+	$(CXX) $(LDFLAGS) $^ $(INCLUDE) $(LIBS) -o trie_1_omp.out 
+
+%.o : %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $<
+
+clean:
+	rm -f *.o *~ *.out *.bc *.ll

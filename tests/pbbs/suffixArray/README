@@ -1,0 +1,8 @@
+1) Create input
+   > cd sequenceData/data
+   > make trigramString_100000000
+
+2) Make and run program
+   > cd deterministicHash
+   > make
+   > ./SA -r 1 -o /tmp/ofile802103_686914 ../sequenceData/data/trigramString_100000000

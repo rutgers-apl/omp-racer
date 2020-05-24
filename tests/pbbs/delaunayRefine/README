@@ -1,0 +1,9 @@
+1) Create input
+   > cd geometryData/data/
+   > make 2DinCubeDelaunay_5000000
+
+2) Make and run program
+   > cd incrementalRefine
+   > make
+   > ./refine -r 1 -o /tmp/ofile699250_954868 ../geometryData/data/2DinCubeDelaunay_5000000
+

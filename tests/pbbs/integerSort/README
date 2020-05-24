@@ -1,0 +1,9 @@
+1) Create input
+   > cd sequenceData/data/
+   > make randomSeq_100M_int
+
+2) Make and run program
+   > cd blockRadixSort
+   > make
+   > ./isort -r 1 -o /tmp/ofile660322_977147 ../sequenceData/data/randomSeq_100M_int
+

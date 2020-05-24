@@ -1,0 +1,10 @@
+
+1) Create input
+   > cd sequenceData/data/
+   > make randomSeq_100M_double
+
+2) Make and run program
+   > cd sampleSort
+   > make
+   > ./sort -r 1 -o /tmp/ofile959994_651631 ../sequenceData/data/randomSeq_100M_double
+

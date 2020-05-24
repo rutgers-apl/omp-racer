@@ -1,0 +1,4 @@
+openmp-static-r : PCFLAGS = -fopenmp -mcx16 -fsanitize=thread -O3 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -std=c++11
+openmp-static-r : PLFLAGS = -fopenmp -fsanitize=thread $(SDSLLF)
+openmp-dynamic-r : PCFLAGS = -fopenmp -mcx16 -fsanitize=thread -O3 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -std=c++11
+openmp-dynamic-r : PLFLAGS = -fopenmp -fsanitize=thread $(SDSLLF)

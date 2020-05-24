@@ -1,0 +1,25 @@
+CXX=clang-archer++
+OPT=opt
+
+TARGET=bots-concom.out
+PROG=bots-concom.out
+OBJS=bots_main.o bots_common.o concom.o
+INTERMEDIATES=bots_main.bc bots_common.bc concom.bc
+CXXFLAGS := -fopenmp -g -O1
+LDFLAGS = -fopenmp -g
+
+PASS_COMPILE_FLAGS =  -fopenmp -g -c
+omprace_compile_flags = -I./ -g
+
+
+all : $(PROG)
+
+$(PROG) : $(OBJS)
+	$(CXX) -lm -fopenmp  $(OBJS) $(omprace_compile_flags) -o $(PROG) 
+
+ 
+%.o : %.c 
+	$(CXX) $(CXXFLAGS) $(PASS_COMPILE_FLAGS) $<
+
+clean:
+	rm -f *.o $(TARGET) *~ *.out *.txt *.ll *.bc

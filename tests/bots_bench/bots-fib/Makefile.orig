@@ -1,0 +1,39 @@
+CXX=clang++
+OPT= opt
+#INCLUDE = -I./ -I$(LLVM_INCLUDE) -I$(OMPP_ROOT)/src/include/ 
+#LIBS = $(OMPP_ROOT)/src/ompproflib/libompprof.a $(LLVM_LIB)/libomp.so -Wl,-rpath=$(LLVM_LIB) $(LLVM_LIB)/libomp.so
+
+TARGET=bots-fib.out
+PROG=bots-fib.out
+OBJS=bots_main.o bots_common.o fib.o 
+INTRMEDIATES=bots_main.bc bots_common.bc fib.bc 
+CXXFLAGS := -fopenmp -DMANUAL_CUTOFF -g -O1 
+LDFLAGS = -fopenmp -g
+
+PASS_COMPILE_FLAGS =  -fopenmp -std=c++11 -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g -c
+OPT_FLAGS = -load $(HOME)/llvm-src-60/llvm/build/lib/DataAnnotation.so -DataAnnotation
+omprace_compile_flags = -std=c++11 -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g $(OMPP_ROOT)/src/omprace/libomprace.a
+
+
+all : $(PROG)
+$(PROG) : $(OBJS)
+	$(CXX) -lm -fopenmp  $(OBJS) -o $(PROG) 
+
+#%.bc : %.ll
+#	$(OPT) $(OPT_FLAGS) < $< > $@
+
+ 
+%.o : %.c 
+	$(CXX) $(CXXFLAGS) $<
+
+#all: $(OBJS)
+#	$(CXX) $(LDFLAGS) $(OBJS) $(INCLUDE) $(LIBS) -o $(TARGET)
+
+#%.o : %.cpp
+#	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $<
+
+#%.o: %.c
+#	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $<
+
+clean:
+	rm -f *.o $(TARGET) *~ *.out *.txt *.ll *.bc

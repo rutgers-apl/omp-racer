@@ -1,0 +1,4 @@
+openmp-prof-static-r : PCFLAGS = -fopenmp -fsanitize=thread -O3 -std=c++11 -mcx16 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g -S -emit-llvm
+openmp-prof-static-r : PLFLAGS = -fopenmp -fsanitize=thread -O3 -DOMPT_DEBUG -g -std=c++11 $(SDSLLF) -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g $(OMPP_ROOT)/src/omprace/libomprace.a
+openmp-prof-dynamic-r : PCFLAGS = -fopenmp -fsanitize=thread -O3 -std=c++11 -mcx16 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g -S -emit-llvm
+openmp-prof-dynamic-r : PLFLAGS = -fopenmp -fsanitize=thread -O3 -DOMPT_DEBUG -g -std=c++11 $(SDSLLF) -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g $(OMPP_ROOT)/src/omprace/libomprace.a

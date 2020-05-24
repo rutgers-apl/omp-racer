@@ -1,0 +1,8 @@
+1) Create input
+   > cd sequenceData/data
+   > make randomSeq_100M_int
+
+2) Make and run program
+   > cd deterministicHash
+   > make
+   > ./remDups -r 1 -o /tmp/ofile530965_884365 ../sequenceData/data/randomSeq_100M_int

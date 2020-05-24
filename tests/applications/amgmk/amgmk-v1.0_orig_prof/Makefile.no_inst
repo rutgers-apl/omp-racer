@@ -1,0 +1,73 @@
+#BHEADER****************************************************************
+# (c) 2007   The Regents of the University of California               *
+#                                                                      *
+# See the file COPYRIGHT_and_DISCLAIMER for a complete copyright       *
+# notice and disclaimer.                                               *
+#                                                                      *
+#EHEADER****************************************************************
+CC       = clang++
+LDR      = clang++
+OPT      = opt
+
+#FLOOR    = /bgsys/drivers/ppcfloor
+
+#INCDIR   = -I$(FLOOR) -I/bgsys/drivers/ppcfloor/spi/include/kernel/cnk
+
+CFLAGS   = -c -g  -O3 -fopenmp -g -std=c++11 -I./ -I$(LLVM_INCLUDE) -I$(OMPP_ROOT)/src/include -I$(OMPP_ROOT)/src/ompproflib #-qhot -qsmp=omp -qlanglvl=extc99 -qsimd=auto -qhot=novector -qalias=allp 
+
+LDFLAGS  = -lm -fopenmp $(OMPP_ROOT)/src/ompproflib/libompprof.a $(LLVM_LIB)/libomp.so -Wl,-rpath=$(LLVM_LIB) $(LLVM_LIB)/libomp.so #-qsmp=omp -pg
+PASS_COMPILE_FLAGS =  -fopenmp -std=c++11 -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g -c
+OPT_FLAGS = -load $(LLVM_HOME)/lib/DataAnnotation.so -DataAnnotation
+omprace_compile_flags =  -std=c++11 -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g $(OMPP_ROOT)/src/omprace/libomprace.a
+LIBS     = 
+#LIB_DIRS =  -L$(FLOOR)/spi/lib -lSPI_l1p -lSPI_cnk  -L/usr/local/tools/mpitrace/lib -lmpihpm -L/bgsys/drivers/ppcfloor/bgpm/lib -lbgpm -lmassv -lmass_simd
+
+PROG     = AMGMk
+
+OBJS     = main.o \
+           csr_matrix.o   csr_matvec.o  \
+           laplace.o relax.o \
+           hypre_error.o hypre_memory.o \
+           vector.o
+
+INTRMEDIATES    = main.bc \
+           csr_matrix.bc   csr_matvec.bc  \
+           laplace.bc relax.bc \
+           hypre_error.bc hypre_memory.bc \
+           vector.bc
+
+all : $(PROG)
+
+$(PROG) : $(OBJS)
+	$(LDR) -lm -fopenmp -O3 $(OBJS) $(omprace_compile_flags) -o $(PROG) 
+
+%.bc : %.ll
+	$(OPT) $(OPT_FLAGS) < $< > $@
+
+ 
+%.o : %.c 
+	$(CC) -O3 $(PASS_COMPILE_FLAGS) $<
+
+clean :
+	rm -f *.o $(PROG) core job.out *.ll *.bc *~ 
+
+
+.SUFFIXES : .o  .c
+
+#*****************************************************************
+#* Rules for C object file dependencies
+#*****************************************************************
+#.c.o :
+#	$(CC) $(CFLAGS) $*.c 
+#.c.ll :
+#	$(CC) $(PASS_COMPILE_FLAGS) $*.c 
+
+#.ll.bc :
+#	$(OPT) $(OPT_FLAGS) < $*.ll > $*.bc 
+
+
+
+
+
+
+

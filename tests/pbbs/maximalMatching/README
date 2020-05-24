@@ -1,0 +1,9 @@
+1) Create input
+   > cd graphData/data
+   > make randLocalGraph_E_5_40000000
+
+2) Make and run program
+   > cd ndMatching
+   > make
+   > ./matching -r 1 -o /tmp/ofile685095_551810 ../graphData/data/randLocalGraph_E_5_40000000
+

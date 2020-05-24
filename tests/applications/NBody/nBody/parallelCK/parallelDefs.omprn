@@ -1,0 +1,4 @@
+openmp-prof-static-r : PCFLAGS = -fopenmp -O3 -DOMPT_DEBUG -mcx16 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -g -std=c++11 -I./ -I$(LLVM_INCLUDE) -I$(OMPP_ROOT)/src/include -I$(OMPP_ROOT)/src/ompproflib
+openmp-prof-static-r : PLFLAGS = -fopenmp -O3 -DOMPT_DEBUG -g -std=c++11 $(SDSLLF) $(OMPP_ROOT)/src/ompproflib/libompprof.a $(LLVM_LIB)/libomp.so -Wl,-rpath=$(LLVM_LIB) $(LLVM_LIB)/libomp.so
+openmp-race-noinst-r : PCFLAGS = -fopenmp -O3  -std=c++11 -mcx16 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g 
+openmp-race-noinst-r : PLFLAGS = -fopenmp -O3 -DOMPT_DEBUG -g -std=c++11 $(SDSLLF) -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g $(OMPP_ROOT)/src/omprace/libomprace.a

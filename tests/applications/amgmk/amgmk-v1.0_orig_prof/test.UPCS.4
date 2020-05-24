@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -N1
+#SBATCH -D /g/g0/chanbor/vulcan/bench/MICRO/AMG/v1.0
+#SBATCH -p pdebug
+#SBATCH -o out.file.4
+#SBATCH -e error.file
+
+export PAMID_CONTEXT_MAX=1
+export BG_SHAREDMEMSIZE=64
+export PAMID_VERBOSE=1
+export OMP_NUM_THREADS=4
+export BG_THREADLAYOUT=2
+
+srun -N1 -n1 /usr/local/bin/L1pEnable
+srun -N1 -n1 AMGMk
+
+
+
+
+
+

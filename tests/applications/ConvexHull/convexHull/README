@@ -1,0 +1,17 @@
+1) Create input
+   > cd geometryData/data/
+   > make 2DinSphere_100000000
+
+2) Build program
+   > cd quickHull
+   > make 
+
+3) Execute program with OMP-WhIP profile data generation. (serial, openmp, openmp with profiling)
+   > ./hull.ser -r 1 -o /tmp/ofile971367_438110 ../geometryData/data/2DinSphere_100000000
+   > ./hull.openmp -r 1 -o /tmp/ofile971367_438110 ../geometryData/data/2DinSphere_100000000
+   > ./hull.ompp -r 1 -o /tmp/ofile971367_438110 ../geometryData/data/2DinSphere_100000000
+
+This step is only required only when using offline profiling mode
+4) Execute OMP-WhIP profile generation.
+   > $PGEN/genprof
+

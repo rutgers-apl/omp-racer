@@ -1,0 +1,18 @@
+CXX=clang++
+
+INCLUDE = -I./ -I$(LLVM_INCLUDE) -I$(OMPP_ROOT)/src/ompproflib/ -I$(OMPP_ROOT)/src/include  -g
+LIBS = $(OMPP_ROOT)/src/ompproflib/libompprof.a $(LLVM_LIB)/libomp.so -Wl,-rpath=$(LLVM_LIB) $(LLVM_LIB)/libomp.so
+
+TARGET=test_for.out
+OBJS=test_for.o util.o
+CXXFLAGS := -fopenmp -std=c++11
+LDFLAGS = -fopenmp
+
+all: $(OBJS)
+	$(CXX) $(LDFLAGS) $(OBJS) $(INCLUDE) $(LIBS) -o $(TARGET)
+
+%.o : %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $<
+
+clean:
+	rm -f *.o $(TARGET) *~ *.out

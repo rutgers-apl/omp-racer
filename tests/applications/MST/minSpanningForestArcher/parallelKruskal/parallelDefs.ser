@@ -1,0 +1,2 @@
+serial-r : PCFLAGS = -mcx16 -O3 -DOPENMP -DMCX16 $(INTT) $(SDSLCF) -std=c++11
+serial-r : PLFLAGS = $(SDSLLF)

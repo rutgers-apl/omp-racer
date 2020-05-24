@@ -1,0 +1,3 @@
+export LLVM_HOME="$HOME/llvm-10"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LLVM_HOME/lib"
+export PATH="$PATH:$LLVM_HOME/bin"

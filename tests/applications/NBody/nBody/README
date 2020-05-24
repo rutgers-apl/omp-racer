@@ -1,0 +1,17 @@
+1) Create input
+   > cd geometryData/data
+   > make 3DonSphere_1000000
+
+2) Make and run program
+   > cd parallelCK
+   > make
+   > ./nbody -r 1 -o /tmp/ofile974877_207802 ../geometryData/data/3DonSphere_1000000
+   
+3) Execute program with OMP-WhIP profile data generation. (serial, openmp, openmp with profiling)
+   > ./nbody.ser -r 1 -o /tmp/ofile974877_207802 ../geometryData/data/3DonSphere_1000000
+   > ./nbody.openmp -r 1 -o /tmp/ofile974877_207802 ../geometryData/data/3DonSphere_1000000
+   > ./nbody.ompp -r 1 -o /tmp/ofile974877_207802 ../geometryData/data/3DonSphere_1000000
+
+This step is only required only when using offline profiling mode
+4) Execute OMP-WhIP profile generation 
+   > $PGEN/genprof

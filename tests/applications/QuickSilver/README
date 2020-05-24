@@ -1,0 +1,58 @@
+### How to generate results
+
+This folder includes the different variants of the QuickSilver 
+application used in the evaluation section in the paper. 
+To run all variants and generate the speedup and OMP-WhIP 
+profiles in a single output file, run the following command:
+
+$ python generate_results.py
+
+This will generate the input data for the application and run
+The variants of the application. The results are written to 
+report.txt.
+
+report.txt includes the profile of the original application,
+the what-if analysis profile of the application, and a profile 
+of the optimized version of the application, where we were able 
+to improve upon the original's performance. The report ends with 
+the speedup measurement of the original and the optimized application.
+
+To use the on-the-fly profiler to generate the above results, run
+the following command: 
+
+$ python generate_results_online.py
+
+Note that to run either of the two profiling modes, the user must source
+setup-ompwhip.sh or setup-ompwhip-online.sh before attempting to run
+the profiler.
+
+
+### How to run each application separately
+
+This directory contains 5 variants of QuickSilver
+1) QuickSilver_orig				original version
+2) QuickSilver_orig_ser			original version running serially
+3) QuickSilver_orig_prof    	original version with Omp-WhIP profiling
+4) QuickSilver_whatif          	original version with What_If analysis
+5) QuickSilver_opt 				optmized version 
+6) QuickSilver_opt_prof 		optimized version with Omp-WhIP profiling
+
+1) Make and run program
+
+	> cd QuickSilver/src
+	> make
+	> ./qs -i ../Examples/CORAL2_Benchmark/Problem1/Coral2_P1_1.inp
+
+2) Execute OMP-WhIP profile generation. this step can be skipped when
+using the on-the-fly profiler:
+(Works with the profiled version. No: 3,4,6 from the list above)
+   > $PGEN/genprof 
+
+Using genprof with the -f option generates a full what-if profile
+
+### Expected Results
+
+We have included an expected.report.txt that contains the contents
+of a previous execution using the offline profiler. The contents 
+of report.txt should closely match expected.report.txt. Speedup 
+values will vary depending on the CPU used.

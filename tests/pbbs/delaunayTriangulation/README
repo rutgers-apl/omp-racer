@@ -1,0 +1,16 @@
+1) Create input
+   > cd geometryData/data/
+   > make 2DinCube_10M
+
+2) Build program
+   > cd incrementalDelaunay
+   > make 
+
+3) Execute program with OMP-WhIP profile data generation. (serial, openmp, openmp with profiling)
+   > ./delaunay.ser -r 1 -o /tmp/ofile850740_480180 ../geometryData/data/2DinCube_10M
+   > ./delaunay.openmp -r 1 -o /tmp/ofile850740_480180 ../geometryData/data/2DinCube_10M
+   > ./delaunay.ompp -r 1 -o /tmp/ofile850740_480180 ../geometryData/data/2DinCube_10M
+
+This step is only required only when using offline profiling mode
+4) Execute OMP-WhIP profile generation.
+   > $PGEN/genprof

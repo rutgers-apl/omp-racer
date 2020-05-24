@@ -1,0 +1,16 @@
+1) Create input
+   > cd graphData/data
+   > make rMatGraph_WE_5_10000000
+
+2) Make and run program
+   > cd parallelKruskal
+   > make
+   
+3) Execute program with OMP-WhIP profile data generation. (serial, openmp, openmp with profiling)
+   > ./MST.ser -r 1 -o /tmp/ofile897171_477798 ../graphData/data/rMatGraph_WE_5_10000000
+   > ./MST.openmp -r 1 -o /tmp/ofile897171_477798 ../graphData/data/rMatGraph_WE_5_10000000
+   > ./MST.ompp -r 1 -o /tmp/ofile897171_477798 ../graphData/data/rMatGraph_WE_5_10000000
+
+This step is only required only when using offline profiling mode
+4) Execute OMP-WhIP profile generation.
+   > $PGEN/genprof

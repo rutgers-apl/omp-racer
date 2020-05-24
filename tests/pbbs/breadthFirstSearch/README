@@ -1,0 +1,9 @@
+1) Create input
+   > cd graphData/data/
+   > make randLocalGraph_J_5_40000000
+
+2) Make and run program
+   > cd ndBFS
+   > make
+   > ./BFS -r 1 -o /tmp/ofile564664_442514 ../graphData/data/randLocalGraph_J_5_40000000
+

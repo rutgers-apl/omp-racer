@@ -1,0 +1,23 @@
+CXX=clang++
+OPT=opt
+
+TARGET=bots-sparselu-for.out
+PROG=bots-sparselu-for.out
+OBJS=bots_main.o bots_common.o sparselu.o 
+INTERMEDIATES=bots_main.bc bots_common.bc sparselu.bc
+CXXFLAGS := -fopenmp -g -O3
+LDFLAGS = -fopenmp -g -O3
+
+PASS_COMPILE_FLAGS =  -fopenmp -DOMPR -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g -c
+omprace_compile_flags = -I./ -I$(LLVM_HOME)/include -I$(OMPP_ROOT)/src/omprace/ -I$(OMPP_ROOT)/src/include -g $(OMPP_ROOT)/src/omprace/libomprace.a
+
+all : $(PROG)
+
+$(PROG) : $(OBJS)
+	$(CXX) -lm $(LDFLAGS) $(OBJS) $(omprace_compile_flags) -o $(PROG) 
+ 
+%.o : %.c 
+	$(CXX) $(CXXFLAGS) $(PASS_COMPILE_FLAGS) $<
+
+clean:
+	rm -f *.o $(TARGET) *~ *.out *.txt *.ll *.bc
