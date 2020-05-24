@@ -1,5 +1,5 @@
 ## omp-racer
-A race detector for OpenMP using llvm 10.0.0
+A dynamic apparent race detector for OpenMP programs using llvm 10.0.0 using the OpenMP Series Parallel Graph (OSPG)
 
 ## Prerequisites
 
