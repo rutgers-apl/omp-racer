@@ -1,5 +1,5 @@
 ## omp-racer
-A dynamic apparent race detector for OpenMP programs using llvm 10.0.0 using the OpenMP Series Parallel Graph (OSPG)
+A dynamic apparent race detector for OpenMP programs using llvm 10 using the Enhanced OpenMP Series Parallel Graph (EOSPG)
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ To build omp-racer, we rely on the following software dependencies:
 
 Checkout release 10 of llvm-project
 	
-	$ git clone https://github.com/llvm/llvm-project.git --branch release_10
+	$ git clone https://github.com/llvm/llvm-project.git --branch release/10x
 	
 Copy the provided modified openmp runtime to replace openmp directory in the cloned repository <llvm download path>/openmp
 build llvm+clang+openmp. We've used a prior version of clang (release-9) for the build but gcc should also work:
@@ -31,12 +31,12 @@ After this, in case there are any changes to the openmp source code and it needs
 $ make omp
 $ make install
 
-Now to build the llvm instrumentation pass by copying the files in the ins_pass directory to <llvm download path>/llvm/lib/transforms/DataAnnotation
+Now to build the llvm instrumentation pass by copying the files in the ins_pass directory to <llvm download path>/llvm/lib/Transforms/DataAnnotation
 
 There are two variations of the instrumentation pass, one instruments memory locations with source line information that allows omp-racer to report the source line information for a data race. this pass is located at the directory pass_with_location_info. Depending which instrumentation pass is chosen, omp-racer needs to be recompiled to work with either pass.
 This is done by setting the LOC_INFO macro in src/openmp_dpst.h. When using the pass with location info, set this macro to 1. otherwise set it to 0.
 
-Add the following line to <llvm download>/llvm/lib/transforms/CMakeLists.txt
+Add the following line to <llvm download>/llvm/lib/Transforms/CMakeLists.txt
 	
 	add_subdirectory(DataAnnotation)
 
@@ -53,8 +53,8 @@ To build omp-racer in precise mode, run:
 The second script assumes that the following 3 environment variables are updated to point to the built llvm which are set via the first script. These are:
 	
 	$ export LLVM_HOME="$HOME/llvm-10"
-	$ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$LLVM_HOME/lib"
-	$ export PATH="$PATH:$LLVM_HOME/bin"
+	$ export LD_LIBRARY_PATH="$LLVM_HOME/lib:$LD_LIBRARY_PATH"
+	$ export PATH="$LLVM_HOME/bin:$PATH"
 
 This mode can be slow and tends to consume a high memory overhead when tested with 
 task-based OpenMP applications. To alleviate this issue we provide a fast mode that

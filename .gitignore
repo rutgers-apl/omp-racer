@@ -56,7 +56,7 @@ build/
 **/sequenceData/data/trigramString_*
 
 # text files
-*.txt
+#*.txt
 
 # llvm intermediate files
 *.ll
